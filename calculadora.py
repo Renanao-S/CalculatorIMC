@@ -1,54 +1,125 @@
-import tkinter as tk
+import customtkinter as ctk
 from tkinter import messagebox
-#creacion de la ventana
-app = tk.Tk()
+
+# configuracion customtkinter
+ctk.set_appearance_mode("light")
+ctk.set_default_color_theme("dark-blue")
+
+# creacion de la ventana
+app = ctk.CTk()
 app.title("Calculadora IMC (Praktika)")
 app.geometry("600x500")
 app.resizable(False, False)
+app.iconbitmap("src/descarga.ico")
 
-#cosos dentro de la ventana
-titulo = tk.Label(app, text="Calculadora de IMC", font=("arial","16","bold"))
+
+# cosos dentro de la ventana
+titulo = ctk.CTkLabel(
+    app,
+    text="Calculadora de IMC",
+    font=("arial", 16, "bold")
+)
 titulo.pack(pady=20)
-tituloPeso = tk.Label(app, text="Ingrese su peso en kg", font=("arial","12","bold"))
+
+tituloPeso = ctk.CTkLabel(
+    app,
+    text="Ingrese su peso en kg",
+    font=("arial", 12, "bold")
+)
 tituloPeso.pack()
-peso = tk.Entry(app)
+
+peso = ctk.CTkEntry(app)
 peso.pack(pady=10)
-#altura
-tituloAltura = tk.Label(app, text="Ingrese su altura", font= ("arial","12","bold"))
+
+# altura
+tituloAltura = ctk.CTkLabel(
+    app,
+    text="Ingrese su altura",
+    font=("arial", 12, "bold")
+)
 tituloAltura.pack()
-altura = tk.Entry(app)
+
+altura = ctk.CTkEntry(app)
 altura.pack(pady=10)
-#funcion calcular IMC
+
+# funcion calcular IMC
 def calcularIMC():
-   #Excepciones uwu
-   try:
-    pesoValor = peso.get()
-    pesoFloat = float(pesoValor)   
-    alturaValor = altura.get()
-    alturaFloat = float(alturaValor)
-   except ValueError:
-    messagebox.showerror("Error","Por favor ingrese un numero válido")
-    return
-   #Calculo 
-   imc = pesoFloat / alturaFloat ** 2
-   resultados.config(text="Su imc es: "+ str(round(imc,1)))
-   if imc < 18.5:
-     categoria.config(text="Usted está bajo peso")
-   elif imc >= 18.5 and imc <= 24.9: 
-     categoria.config(text="Usted está en un peso normal") 
-   elif imc >= 25 and imc <= 29.9:
-     categoria.config(text="Usted tiene sobrepeso")
-   else:
-     categoria.config(text="Usted tiene obesidad")
-#boton
-calculo = tk.Button(app, text="Calcular", font=("arial","10","bold"), command=calcularIMC)
+    # Excepciones uwu
+    try:
+        pesoValor = peso.get()
+        pesoFloat = float(pesoValor)
+
+        alturaValor = altura.get()
+        alturaFloat = float(alturaValor)
+
+    except ValueError:
+        messagebox.showerror(
+            "Error",
+            "Por favor ingrese un numero válido"
+        )
+        return
+
+    # Calculo
+    imc = pesoFloat / alturaFloat ** 2
+
+    resultados.configure(
+        text="Su imc es: " + str(round(imc, 1))
+    )
+
+    if imc < 18.5:
+        categoria.configure(
+            text="Usted está bajo peso"
+        )
+
+    elif imc >= 18.5 and imc <= 24.9:
+        categoria.configure(
+            text="Usted está en un peso normal"
+        )
+
+    elif imc >= 25 and imc <= 29.9:
+        categoria.configure(
+            text="Usted tiene sobrepeso"
+        )
+
+    else:
+        categoria.configure(
+            text="Usted tiene obesidad"
+        )
+
+# boton
+calculo = ctk.CTkButton(
+    app,
+    text="Calcular",
+    font=("arial", 10, "bold"),
+    fg_color="pink",
+    text_color="black",
+    width=150,
+    height=50,
+    hover_color="hot pink",
+    command=calcularIMC
+)
 calculo.pack(pady=10)
-#muestra de resultados
-tituloResultado = tk.Label(app, text="Resultados", font=("arial","12","bold"))
+
+# muestra de resultados
+tituloResultado = ctk.CTkLabel(
+    app,
+    text="Resultados",
+    font=("arial", 12, "bold")
+)
 tituloResultado.pack(pady=10)
-resultados = tk.Label(app, font=("arial","10","bold"))
+
+resultados = ctk.CTkLabel(
+    app,
+    text="",
+    font=("arial", 15, "bold")
+)
 resultados.pack(pady=10)
-categoria = tk.Label(app, font=("arial","10","bold"))
+
+categoria = ctk.CTkLabel(
+    app,
+    text="",
+    font=("arial", 15, "bold")
+)
 categoria.pack(pady=10)
 
 app.mainloop()
